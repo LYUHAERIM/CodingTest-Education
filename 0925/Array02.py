@@ -5,16 +5,21 @@
 # n	    return
 # 12345	[5,4,3,2,1]
 
-n = int(input())
-# n = 12345
+# n = int(input())
+n = 12345
 
 
 def solution(n):
     result = []
-    while n % 10 > 0.1:
+    while n > 0:
         result.append(n % 10)
         n //= 10
     return result
 
+
+# def solution(n):
+#     result = [int(ch) for ch in str(n)][::-1]
+#     result = list(map(int, str(n)[::-1]))
+#     return result
 
 print(solution(n))
