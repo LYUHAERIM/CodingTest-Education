@@ -1,4 +1,41 @@
 from pprint import pprint
+
+def make_snail(n: int):
+    # n x n 빈 격자
+    snail = [[0] * n for _ in range(n)]
+
+    # 방향: 상/우/하/좌가 아니라, (오른쪽 → 아래 → 왼쪽 → 위) 시계방향
+    dx = [0, 1, 0, -1]   # 행 변화량
+    dy = [1, 0, -1, 0]   # 열 변화량
+
+    d = 0            # 현재 방향 인덱스 (0=오른쪽)
+    x, y = 0, 0      # 시작 위치 (0,0)
+
+    for num in range(1, n * n + 1):
+        snail[x][y] = num
+
+        # 다음 칸 후보
+        nx = x + dx[d]
+        ny = y + dy[d]
+
+        # 격자를 벗어나거나 이미 채워진 칸이면 방향 전환
+        if not (0 <= nx < n and 0 <= ny < n) or snail[nx][ny] != 0:
+            d = (d + 1) % 4
+            nx = x + dx[d]
+            ny = y + dy[d]
+
+        # 실제 이동
+        x, y = nx, ny
+
+    return snail
+
+# 예시 실행
+n = 5
+grid = make_snail(n)
+pprint(grid)
+
+
+
 # 1  2  3  4
 # 12 13 14 5
 # 11 16 15 6

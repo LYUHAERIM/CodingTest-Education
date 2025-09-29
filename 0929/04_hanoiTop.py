@@ -20,5 +20,21 @@
 
 
 def solution(n):
-    answer = [[]]
-    return answer
+    moves = []
+
+    def hanoi(k, src, aux, dst):
+        # k개의 원판을 src -> dst로 옮기되, 보조기둥 aux를 사용
+        if k == 0:
+            return
+        # 1) 가장 큰 원판을 빼기 위해 k-1개를 src -> aux로
+        hanoi(k-1, src, dst, aux)
+        # 2) 가장 큰 원판 1개를 src -> dst로
+        moves.append([src, dst])
+        # 3) 남은 k-1개를 aux -> dst로
+        hanoi(k-1, aux, src, dst)
+
+    hanoi(n, 1, 2, 3)
+    return moves
+
+
+print(solution(3))
