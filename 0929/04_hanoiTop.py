@@ -18,7 +18,9 @@
 # n	result
 # 2	[ [1,2], [1,3], [2,3] ]
 
-
+# (1) k-1개를 src → aux 로 옮긴다 (dst를 보조로 사용)
+# (2) 가장 큰 1개를 src → dst 로 옮긴다
+# (3) k-1개를 aux → dst 로 옮긴다 (src를 보조로 사용)
 def solution(n):
     moves = []
 
