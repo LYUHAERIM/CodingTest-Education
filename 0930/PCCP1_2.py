@@ -37,3 +37,28 @@
 # [[20, 30],
 # [30, 20],
 # [20, 30]]	            60
+
+
+def solution(ability):
+    n = len(ability)  # 학생 수(행)
+    m = len(ability[0])  # 종목 수(열)
+
+    used = [False] * n  # i번째 학생을 이미 썼는지
+    best = 0
+
+    def dfs(col, total):
+        nonlocal best
+        if col == m:  # 모든 종목을 다 선택했으면
+            best = max(best, total)  # 최댓값 갱신
+            return
+        for stu in range(n):  # stu 학생을 이 종목 대표로 시도
+            if not used[stu]:
+                used[stu] = True
+                dfs(col + 1, total + ability[stu][col])
+                used[stu] = False  # 되돌리기(다른 학생 시도)
+
+    dfs(0, 0)
+    return best
+
+
+print(solution([[40, 10, 10], [20, 5, 0], [30, 30, 30], [70, 0, 70], [100, 100, 100]]))

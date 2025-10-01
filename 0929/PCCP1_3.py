@@ -31,6 +31,27 @@
 # [[3, 1], [2, 3], [3, 9]]	    ["RR", "Rr", "RR"]
 # [[4, 26]]	                    ["Rr"]
 
+
+# 1
+def solution(queries):
+    def get_gene(n, p):
+        state = "Rr"  # 세대 1은 항상 Rr
+        while n > 1:
+            child = (p - 1) % 4  # 이번 단계에서 고른 자식(0~3)
+            # Rr의 자식: [RR, Rr, Rr, rr]
+            if child == 0:
+                state = "RR"
+            elif child == 3:
+                state = "rr"
+            # 한 세대 위로
+            p = (p - 1) // 4 + 1
+            n -= 1
+        return state  # RR/rr이면 중간에 확정, 아니면 끝까지 갔을 때 Rr
+
+    return [get_gene(n, p) for n, p in queries]
+
+
+# 2
 def solution(queries):
     def kth_genotype(n, p):
         # 세대 1의 개체는 항상 Rr (문제 전개상 기본 가정)
@@ -65,4 +86,4 @@ def solution(queries):
     return [kth_genotype(n, p) for n, p in queries]
 
 
-print(solution([[3, 5]]))
+print(solution([[3, 6]]))
